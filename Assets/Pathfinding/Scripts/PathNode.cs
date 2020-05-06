@@ -20,7 +20,15 @@ public class PathNode {
         this.grid = grid;
         this.x = x;
         this.y = y;
-        isWalkable = true;
+        isWalkable = generateWalkable(x, y);
+    }
+
+    // A very simple implementation to generate random maps? We can extend this later.
+    public bool generateWalkable(int x, int y) {
+        if (x != 0 && y != 0) {
+            return Random.Range(0, 100) > 10;
+        }
+        return true;
     }
 
     public void CalculateFCost() {

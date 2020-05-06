@@ -61,6 +61,10 @@ public class Grid<TGridObject> {
         return height;
     }
 
+    public int getSize() {
+        return width * height;
+    }
+
     public float GetCellSize() {
         return cellSize;
     }
