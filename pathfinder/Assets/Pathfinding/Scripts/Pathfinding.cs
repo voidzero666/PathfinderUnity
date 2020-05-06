@@ -7,7 +7,7 @@ using UnityEngine;
 public class Pathfinding {
 
     private const int MOVE_STRAIGHT_COST = 10;
-    private const int MOVE_DIAGONAL_COST = 999999999;
+    private const int MOVE_DIAGONAL_COST = 20;
 
     public static Pathfinding Instance { get; private set; }
 
