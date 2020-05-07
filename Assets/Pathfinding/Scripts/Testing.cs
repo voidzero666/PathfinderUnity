@@ -24,8 +24,6 @@ public class Testing : MonoBehaviour {
     }
 
     private void Update() {
-        
-        // TODO: If tiles left to
         if (Input.GetMouseButtonDown(0)) {
 
             // Get random grid X and Y

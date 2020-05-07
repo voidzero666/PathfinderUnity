@@ -86,7 +86,7 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
                 bool isCurrent = pathNode == current;
                 bool isInOpenList = openList.Contains(pathNode);
                 bool isInClosedList = closedList.Contains(pathNode);
-                // bool hasBeenWalked = pathNode.hasBeenWalked;
+                bool hasBeenWalkedOn = pathNode.hasBeenWalkedOn;
                 int tmpX = x;
                 int tmpY = y;
 
@@ -96,9 +96,9 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
 
                     Color backgroundColor = UtilsClass.GetColorFromString("636363");
 
-                    // if (hasBeenWalked) {
-                    //     backgroundColor = UtilsClass.GetColorFromString("ffffff");
-                    // }
+                    if (hasBeenWalkedOn) {
+                        backgroundColor = UtilsClass.GetColorFromString("ffffff");
+                    }
                     if (isInClosedList) {
                         backgroundColor = new Color(1, 0, 0);
                     }

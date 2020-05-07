@@ -49,10 +49,20 @@ public class Pathfinding {
             return null;
         }
 
-        // Can't walk
         if (!endNode.isWalkable) {
+            Debug.Log("Is Not Walkable");
             return null;
         }
+
+        // if (endNode.hasBeenWalkedOn) {
+        //     Debug.Log("Has Been Walked On");
+        //     return null;
+        // }
+
+        // Can't walk
+        // if ((startX != 0) && (startY != 0)) {
+
+        // }
 
         openList = new List<PathNode> { startNode };
         closedList = new List<PathNode>();
@@ -84,6 +94,7 @@ public class Pathfinding {
 
             openList.Remove(currentNode);
             closedList.Add(currentNode);
+            // currentNode.SetHasBeenWalked();
 
             foreach (PathNode neighbourNode in GetNeighbourList(currentNode)) {
                 if (closedList.Contains(neighbourNode)) continue;
@@ -148,8 +159,6 @@ public class Pathfinding {
         PathNode currentNode = endNode;
         while (currentNode.cameFromNode != null) {
             path.Add(currentNode.cameFromNode);
-            currentNode.SetHasBeenWalked();
-            Debug.Log(currentNode);
             currentNode = currentNode.cameFromNode;
         }
         path.Reverse();
