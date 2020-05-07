@@ -7,7 +7,7 @@ using UnityEngine;
 public class Pathfinding {
 
     private const int MOVE_STRAIGHT_COST = 10;
-    private const int MOVE_DIAGONAL_COST = 20;
+    private const int MOVE_DIAGONAL_COST = 14;
 
     public static Pathfinding Instance { get; private set; }
 
@@ -46,6 +46,11 @@ public class Pathfinding {
 
         if (startNode == null || endNode == null) {
             // Invalid Path
+            return null;
+        }
+
+        // Can't walk
+        if (!endNode.isWalkable) {
             return null;
         }
 
@@ -143,6 +148,8 @@ public class Pathfinding {
         PathNode currentNode = endNode;
         while (currentNode.cameFromNode != null) {
             path.Add(currentNode.cameFromNode);
+            currentNode.SetHasBeenWalked();
+            Debug.Log(currentNode);
             currentNode = currentNode.cameFromNode;
         }
         path.Reverse();

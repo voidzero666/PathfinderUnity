@@ -38,9 +38,9 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        // if (Input.GetKeyDown(KeyCode.Space)) {
             ShowNextSnapshot();
-        }
+        // }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
             autoShowSnapshots = true;
@@ -86,6 +86,7 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
                 bool isCurrent = pathNode == current;
                 bool isInOpenList = openList.Contains(pathNode);
                 bool isInClosedList = closedList.Contains(pathNode);
+                // bool hasBeenWalked = pathNode.hasBeenWalked;
                 int tmpX = x;
                 int tmpY = y;
 
@@ -95,6 +96,9 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
 
                     Color backgroundColor = UtilsClass.GetColorFromString("636363");
 
+                    // if (hasBeenWalked) {
+                    //     backgroundColor = UtilsClass.GetColorFromString("ffffff");
+                    // }
                     if (isInClosedList) {
                         backgroundColor = new Color(1, 0, 0);
                     }

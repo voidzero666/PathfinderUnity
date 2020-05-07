@@ -228,11 +228,10 @@ namespace CodeMonkey.Utils {
             return Parse_Int(txt, -1);
 	    }
 
-
-
         // Get Mouse Position in World with Z = 0f
         public static Vector3 GetMouseWorldPosition() {
             Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+            Debug.Log(vec);
             vec.z = 0f;
             return vec;
         }

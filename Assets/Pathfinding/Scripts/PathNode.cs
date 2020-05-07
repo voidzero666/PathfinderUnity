@@ -14,6 +14,7 @@ public class PathNode {
     public int fCost;
 
     public bool isWalkable;
+    public bool hasBeenWalkedOn = false;
     public PathNode cameFromNode;
 
     public PathNode(Grid<PathNode> grid, int x, int y) {
@@ -33,6 +34,13 @@ public class PathNode {
 
     public void CalculateFCost() {
         fCost = gCost + hCost;
+        if (hasBeenWalkedOn) {
+            fCost *= 2;
+        }
+    }
+
+    public void SetHasBeenWalked() {
+        this.hasBeenWalkedOn = true;
     }
 
     public void SetIsWalkable(bool isWalkable) {
