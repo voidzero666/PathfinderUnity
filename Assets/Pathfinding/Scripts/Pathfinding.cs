@@ -45,19 +45,21 @@ public class Pathfinding {
         PathNode endNode = grid.GetGridObject(endX, endY);
 
         if (startNode == null || endNode == null) {
-            // Invalid Path
+            Testing.isRunning = false;
             return null;
         }
 
         if (!endNode.isWalkable) {
-            Debug.Log("Is Not Walkable");
+            StatsHandler.Instance.log("I can't go there!");
+            Testing.isRunning = false;
             return null;
         }
 
-        // if (endNode.hasBeenWalkedOn) {
-        //     Debug.Log("Has Been Walked On");
-        //     return null;
-        // }
+        if (endNode.hasBeenWalkedOn) {
+            StatsHandler.Instance.log("Deja Vu, I've been at that tile before.");
+            Testing.isRunning = false;
+            return null;
+        }
 
         // Can't walk
         // if ((startX != 0) && (startY != 0)) {
@@ -94,10 +96,10 @@ public class Pathfinding {
 
             openList.Remove(currentNode);
             closedList.Add(currentNode);
-            // currentNode.SetHasBeenWalked();
 
             foreach (PathNode neighbourNode in GetNeighbourList(currentNode)) {
                 if (closedList.Contains(neighbourNode)) continue;
+
                 if (!neighbourNode.isWalkable) {
                     closedList.Add(neighbourNode);
                     continue;
@@ -114,6 +116,7 @@ public class Pathfinding {
                         openList.Add(neighbourNode);
                     }
                 }
+
                 PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
             }
         }
@@ -125,22 +128,10 @@ public class Pathfinding {
     private List<PathNode> GetNeighbourList(PathNode currentNode) {
         List<PathNode> neighbourList = new List<PathNode>();
 
-        if (currentNode.x - 1 >= 0) {
-            // Left
-            neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
-            // Left Down
-           // if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
-            // Left Up
-           // if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
-        }
-        if (currentNode.x + 1 < grid.GetWidth()) {
-            // Right
-            neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
-            // Right Down
-          //  if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
-            // Right Up
-          //  if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
-        }
+        // Left
+        if (currentNode.x - 1 >= 0) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
+        // Right
+        if (currentNode.x + 1 < grid.GetWidth()) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
         // Down
         if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
         // Up

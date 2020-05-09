@@ -38,9 +38,7 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
     }
 
     private void Update() {
-        // if (Input.GetKeyDown(KeyCode.Space)) {
-            ShowNextSnapshot();
-        // }
+        ShowNextSnapshot();
 
         if (Input.GetKeyDown(KeyCode.Return)) {
             autoShowSnapshots = true;
@@ -130,6 +128,7 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
                 int fCost = pathNode.fCost;
                 Vector3 gridPosition = new Vector3(pathNode.x, pathNode.y) * grid.GetCellSize() + Vector3.one * grid.GetCellSize() * .5f;
                 bool isInPath = path.Contains(pathNode);
+                bool hasBeenWalkedOn = pathNode.hasBeenWalkedOn;
                 int tmpX = x;
                 int tmpY = y;
 
@@ -140,12 +139,17 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
                     Color backgroundColor;
 
                     if (isInPath) {
+                        pathNode.SetHasBeenWalked();
+                        StatsHandler.Instance.updateTilesWalked(grid);
                         backgroundColor = new Color(0, 1, 0);
+                    } else if (hasBeenWalkedOn) {
+                        backgroundColor = UtilsClass.GetColorFromString("ffffff");
                     } else {
                         backgroundColor = UtilsClass.GetColorFromString("636363");
                     }
 
                     visualNode.Find("sprite").GetComponent<SpriteRenderer>().color = backgroundColor;
+                    Testing.isRunning = false;
                 });
             }
         }

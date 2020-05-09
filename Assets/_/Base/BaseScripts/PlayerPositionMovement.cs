@@ -20,7 +20,7 @@ using CodeMonkey.Utils;
  * */
 public class PlayerPositionMovement : MonoBehaviour {
     
-    private const float SPEED = 50f;
+    private const float SPEED = 30f;
     
     private Player_Base playerBase;
     private Vector3 targetPosition;
@@ -31,16 +31,11 @@ public class PlayerPositionMovement : MonoBehaviour {
 
     private void Update() {
         HandleMovement();
-
-        if (Input.GetMouseButtonDown(0)) {
-            SetTargetPosition(UtilsClass.GetMouseWorldPosition());
-        }
     }
 
     private void HandleMovement() {
         if (Vector3.Distance(transform.position, targetPosition) > 1f) {
             Vector3 moveDir = (targetPosition - transform.position).normalized;
-
             playerBase.PlayMoveAnim(moveDir);
             transform.position += moveDir * SPEED * Time.deltaTime;
         } else {

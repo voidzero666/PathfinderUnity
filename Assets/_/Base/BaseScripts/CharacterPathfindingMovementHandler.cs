@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using V_AnimationSystem;
@@ -18,7 +6,7 @@ using CodeMonkey.Utils;
 
 public class CharacterPathfindingMovementHandler : MonoBehaviour {
 
-    private const float speed = 40f;
+    private const float speed = 20f;
 
     private V_UnitSkeleton unitSkeleton;
     private V_UnitAnimation unitAnimation;
@@ -37,14 +25,12 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour {
     private void Update() {
         HandleMovement();
         unitSkeleton.Update(Time.deltaTime);
-
-        if (Input.GetMouseButtonDown(0)) {
-            SetTargetPosition(UtilsClass.GetMouseWorldPosition());
-        }
     }
     
     private void HandleMovement() {
         if (pathVectorList != null) {
+            Testing.isWalking = true;
+
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(transform.position, targetPosition) > 1f) {
                 Vector3 moveDir = (targetPosition - transform.position).normalized;
@@ -55,8 +41,14 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour {
             } else {
                 currentPathIndex++;
                 if (currentPathIndex >= pathVectorList.Count) {
+                    // Stop moving the Roomba
                     StopMoving();
+                    
+                    // TODO: Remove probs
                     animatedWalker.SetMoveVector(Vector3.zero);
+                    
+                    // Calback that we're not walking, waiting for next path.
+                    Testing.isWalking = false;
                 }
             }
         } else {
