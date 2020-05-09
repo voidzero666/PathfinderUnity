@@ -24,11 +24,11 @@ public class StatsHandler : MonoBehaviour {
     private ScrollRect scrollRect;
 
     private void Awake() {
-        if (_instance != null && _instance != this) {
-           Destroy(this.gameObject);
-        } else {
-            _instance = this;
-        }
+
+        // Lazy load
+        if (_instance != null && _instance != this) Destroy(this.gameObject);
+        else _instance = this;
+
         cycleCounter = GameObject.Find("Text_Cycles").GetComponent<Text>();
         walkedCounter = GameObject.Find("Text_Walked").GetComponent<Text>();
         logs = GameObject.Find("Text_Logs").GetComponent<TextMeshProUGUI>();
@@ -40,7 +40,7 @@ public class StatsHandler : MonoBehaviour {
     }
 
     public void Update() {
-        scrollRect.normalizedPosition = new Vector2(0, 0);
+        // scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
     public void updateCycles() {
@@ -50,6 +50,7 @@ public class StatsHandler : MonoBehaviour {
 
     public void log(string text) {
         logs.text = logs.text + "\n [ Cycle " + this.cycles.ToString() + " ] " + text;
+        scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
     public void updateTilesWalked(Grid<PathNode> grid) {
