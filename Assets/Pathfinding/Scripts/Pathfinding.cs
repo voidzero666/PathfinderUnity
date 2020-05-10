@@ -45,26 +45,21 @@ public class Pathfinding {
         PathNode endNode = grid.GetGridObject(endX, endY);
 
         if (startNode == null || endNode == null) {
-            Testing.isRunning = false;
+            Globals.isRunning = false;
             return null;
         }
 
         if (!endNode.isWalkable) {
             StatsHandler.Instance.log("I can't go there!");
-            Testing.isRunning = false;
+            Globals.isRunning = false;
             return null;
         }
 
-        if (endNode.hasBeenWalkedOn) {
+        if (endNode.hasBeenWalkedOn && !Globals.ignoreW) {
             StatsHandler.Instance.log("Deja Vu, I've been at that tile before.");
-            Testing.isRunning = false;
+            Globals.isRunning = false;
             return null;
         }
-
-        // Can't walk
-        // if ((startX != 0) && (startY != 0)) {
-
-        // }
 
         openList = new List<PathNode> { startNode };
         closedList = new List<PathNode>();

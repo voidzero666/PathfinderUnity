@@ -29,7 +29,7 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour {
     
     private void HandleMovement() {
         if (pathVectorList != null) {
-            Testing.isWalking = true;
+            Globals.isWalking = true;
 
             Vector3 targetPosition = pathVectorList[currentPathIndex];
             if (Vector3.Distance(transform.position, targetPosition) > 1f) {
@@ -48,7 +48,7 @@ public class CharacterPathfindingMovementHandler : MonoBehaviour {
                     animatedWalker.SetMoveVector(Vector3.zero);
                     
                     // Calback that we're not walking, waiting for next path.
-                    Testing.isWalking = false;
+                    Globals.isWalking = false;
                 }
             }
         } else {

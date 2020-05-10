@@ -17,9 +17,6 @@ public class Testing : MonoBehaviour {
     
     private int lastX = 0;
     private int lastY = 0; 
-
-    public static bool isRunning = false;
-    public static bool isWalking = false;
     private int GRID_X = 20;
     private int GRID_Y = 10;
 
@@ -31,7 +28,7 @@ public class Testing : MonoBehaviour {
     }
 
     private void OnFinished() {
-        isRunning = true;
+        Globals.isRunning = true;
 
         // Get random grid X and Y  
         int nextX = Random.Range(0, GRID_X);
@@ -62,7 +59,7 @@ public class Testing : MonoBehaviour {
     private void Update() {
         
         // Do routine if debugview isn't drawing AND Roomba isn't walking.
-        if (!isRunning && !isWalking) {
+        if (!Globals.isRunning && !Globals.isWalking) {
             OnFinished();
         }
 

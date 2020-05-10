@@ -149,7 +149,9 @@ public class PathfindingDebugStepVisual : MonoBehaviour {
                     }
 
                     visualNode.Find("sprite").GetComponent<SpriteRenderer>().color = backgroundColor;
-                    Testing.isRunning = false;
+                    
+                    // Globals of Interface;
+                    Globals.isRunning = false;
                 });
             }
         }

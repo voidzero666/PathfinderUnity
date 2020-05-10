@@ -26,9 +26,9 @@ public class PathNode {
 
     // A very simple implementation to generate random maps? We can extend this later.
     public bool generateWalkable(int x, int y) {
-        // if (x != 0 && y != 0) {
+        if (x != 0 && y != 0) {
             return Random.Range(0, 100) > 10;
-        // }
+        }
         return true;
     }
 
